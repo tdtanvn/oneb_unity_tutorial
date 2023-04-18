@@ -1,0 +1,307 @@
+syntax = "proto3";
+//
+// The content is generated automatically from blueprint schema
+// modified date: 2023-4-18 2:10:3
+//
+
+
+message DailyQuests {
+  message Quests {
+    message Reward {
+      string id = 1;
+      int32 quantity = 2;
+    }
+    
+    string name = 1;
+    Reward reward = 2;
+    string description = 3;
+    string id = 4;
+    string type = 5;
+    int32 target = 6;
+  }
+  
+  repeated Quests quests = 1;
+}
+
+message DailyRewards {
+  message Steps {
+    string itemId = 1;
+    string description = 2;
+    int32 step = 3;
+    int32 amount = 4;
+  }
+  
+  message DefaultRewardIfAlreadyOwned {
+    string itemId = 1;
+    int32 amount = 2;
+  }
+  
+  int32 hoursToReceive = 1;
+  bool resetIfFail = 2;
+  repeated Steps steps = 3;
+  bool enabled = 4;
+  DefaultRewardIfAlreadyOwned defaultRewardIfAlreadyOwned = 5;
+}
+
+message ItemTable {
+  message Items {
+    string name = 1;
+    string type = 2;
+    string itemId = 3;
+  }
+  
+  repeated Items items = 1;
+}
+
+message LuckyWheel {
+  message Items {
+    string itemId = 1;
+    int32 weight = 2;
+    int32 quantity = 3;
+  }
+  
+  int32 minFullSpins = 1;
+  int32 maxFullSpins = 2;
+  repeated Items items = 3;
+  int32 dailyLimit = 4;
+}
+
+message ProgressQuests {
+  message Quests {
+    message Reward {
+      string id = 1;
+      int32 quantity = 2;
+    }
+    
+    string name = 1;
+    Reward reward = 2;
+    string description = 3;
+    string id = 4;
+    string type = 5;
+    int32 target = 6;
+  }
+  
+  repeated Quests quests = 1;
+}
+
+message Empty {}
+
+
+
+
+message DailyQuestsOutput {
+    message Reward {
+        string id = 1;
+        uint32 quantity = 2;
+    }
+
+    message Dailyquests {
+        string name = 1;
+        Reward reward = 2;
+        string description = 3;
+        string id = 4;
+        string type = 5;
+        uint32 target = 6;
+        uint32 progress = 7;
+        bool canClaim = 8;
+    }
+
+    repeated Dailyquests dailyQuests = 1;
+}
+
+message DailyQuestsUpdateQuestInput {
+  message QuestProgress {
+      string id = 1;
+      uint32 amount = 2;
+  }
+  repeated QuestProgress questProgress = 1;
+}
+message DailyQuestsUpdateQuestOutput {
+  repeated string questsCanClaim = 2;
+}
+message DailyQuestsClaimQuestInput {
+  repeated string items = 1;
+}
+message DailyQuestsClaimQuestOutput {
+ message Rewards {
+      string itemId = 1;
+      uint32 amount = 2;
+  }
+  repeated Rewards rewards = 1;
+}
+message DailyRewardsCanClaimRewardOutput {
+  message Rewards {
+      string itemId = 1;
+      uint32 step = 2;
+      uint32 amount = 3;
+  }
+
+  uint32 curStep = 1;
+  repeated Rewards rewards = 2;
+}
+
+message DailyRewardsSteps {
+    string itemId = 1;
+    string description = 2;
+    uint32 step = 3;
+    uint32 amount = 4;
+    bool claimed = 5;
+    bool canClaim = 6;
+}
+
+message DailyRewardsClaimRewardsOutput {
+  message Rewards {
+        string itemId = 1;
+        uint32 amount = 2;
+  }
+  repeated Rewards rewards = 1;
+  repeated DailyRewardsSteps steps = 2;
+}
+message DailyRewardsList {
+  repeated DailyRewardsSteps steps = 1;
+}
+message LuckyWheelCanClaimOutput {
+  bool canClaim = 1;
+}
+message LuckyWheelClaimItemOutput {
+  message Itemreward {
+        string itemId = 1;
+        uint32 weight = 2;
+        uint32 quantity = 3;
+    }
+
+    message Inventory {
+        string itemId = 1;
+        uint32 amount = 2;
+    }
+
+    message _luckywheel {
+        string lastClaim = 1;
+        uint32 dailySpins = 2;
+    }
+
+    Itemreward itemReward = 1;
+    repeated Inventory inventory = 2;
+    _luckywheel _luckyWheel = 3;
+}
+
+
+message InboxList {
+    message Conditions {
+        string value = 1;
+        string operator = 2;
+        string fieldName = 3;
+    }
+
+    message Gifts {
+        string itemId = 1;
+        uint32 amount = 2;
+    }
+
+    message Items {
+        string content = 1;
+        repeated Conditions conditions = 2;
+        repeated Gifts gifts = 3;
+        uint32 expiryDate = 4;
+        string id = 5;
+        string title = 6;
+        bool canClaim = 7;
+    }
+
+    repeated Items items = 1;
+}
+message InboxClaimInput {
+   repeated string inboxList = 1;
+}
+message InboxClaimOutput {
+   message Inventory {
+        string itemId = 1;
+        uint32 amount = 2;
+    }
+   repeated Inventory inventory = 1;
+   repeated string inboxList    = 2;
+}
+message InboxDeleteInput {
+   repeated string inboxList = 1;
+}
+message InboxDeleteOutput {
+   repeated string inboxList = 1;
+}
+
+
+
+
+message GetTopLeaderboardInput {
+  string name = 1;
+  uint32 offset = 2;
+  string country = 3;
+  uint32 count = 4;
+  bool reverseOrder = 5;
+}
+
+message TopLeaderboard {
+ message Items {
+    string playerName = 1;
+    string playerId = 2;
+    string country = 3;
+    uint32 score = 4;
+    uint32 rank = 5;
+  }
+
+  repeated Items items = 1;
+}
+
+message GetMyRankLeaderboardInput {
+  string name = 1;
+  string country = 2;
+  bool reverseOrder = 3;
+}
+
+message GetMyRankLeaderboardOutput {
+  uint32 rank = 1;
+  uint32 minRank = 2;
+  uint32 score = 3;
+  string playerName = 4;
+  string playerId = 5;
+  string country = 6;
+}
+
+message UpdateScoreLeaderboardInput {
+  message Items {
+    uint32 score = 1;
+    string option = 2;
+    string country = 3;
+    string name = 4;
+  }
+  repeated Items items = 1;
+}
+
+message UpdateScoreLeaderboardOutput {
+  string status = 1;
+}
+
+
+
+
+message PlayerProfile {
+    string playerName = 1;
+    uint64 created = 2;
+    string playerId = 3;
+    string gameId = 4;
+    string country = 5;
+    uint64 lastLogin = 6;
+    bool ban = 7;
+}
+message PlayerProfileReq {
+    string playerName = 1;
+    string country = 2;
+}
+message PlayerData {
+    message Inventory {
+        string itemId = 1;
+        uint32 amount = 2;
+    }
+    string customField = 1;
+    repeated Inventory inventory = 2;
+    uint32 level = 3;
+}
