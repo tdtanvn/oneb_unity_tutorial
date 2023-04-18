@@ -1,6 +1,5 @@
 # tutorial
-this is a source code of a tutorial on how to work with OneB Services
-
+Unity tutorial
 ## Quick start 
 1. init submodule 
 ```bash
