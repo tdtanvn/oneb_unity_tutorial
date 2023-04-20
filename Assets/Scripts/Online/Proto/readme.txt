@@ -3,7 +3,7 @@ C++:
 - protoc --proto_path=. --cpp_out=. DEMO.proto
 
 C#:
-- protoc --proto_path=. --csharp_out=. --csharp_opt=serializable DEMO.proto 
+- protoc --proto_path=. --csharp_out=. DEMO.proto 
 
 JS:
 - pbjs -t static-module -w commonjs --keep-case -o bundle.js  ./proto/DEMO.proto

@@ -1,7 +1,7 @@
 syntax = "proto3";
 //
 // The content is generated automatically from blueprint schema
-// modified date: 2023-4-18 2:10:3
+// modified date: 2023-4-20 10:22:39
 //
 
 
@@ -304,4 +304,28 @@ message PlayerData {
     string customField = 1;
     repeated Inventory inventory = 2;
     uint32 level = 3;
+}
+
+
+
+
+message LoginInput {
+    string provider = 1;
+    string idToken = 2;
+}
+
+message LoginOutput {
+    string accessToken = 1;
+}
+message LinkingAccountInput {
+    string provider = 1;
+    string idToken = 2;
+}
+message LinkingAccountOutput {
+    string playerId = 1;
+    string provider = 2;
+    string email = 3;
+    string id = 4;
+    string picture = 5;
+    string name = 6;
 }

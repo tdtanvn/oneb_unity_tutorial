@@ -42,7 +42,11 @@ public class OnlineManager : MonoBehaviour
         API = new OneBServicesClient { GameId = GameId, Environment = Environment, GameVersion = GameVersion };
         s_Instance = this;
         Auth auth = GetOrCreateAuth();
-        _ = await Instance.API.Login(playerId: auth.playerId, secretKey: auth.secretKey);
+        // _ = await Instance.API.Login(playerId: auth.playerId, secretKey: auth.secretKey);
+        _ = await Instance.API.Send<LoginOutput>(new CallGameScriptCommand<LoginInput>("SocialAccount","Login",new LoginInput() {
+            Provider = "google",
+            IdToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk2OTcxODA4Nzk2ODI5YTk3MmU3OWE5ZDFhOWZmZjExY2Q2MWIxZTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI4OTc3Mzk2MTcxOC1mdjQ5M2JobmExM3Uxbm02dmszYjg0MWU1bGlla3Uzbi5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsImF1ZCI6Ijg5NzczOTYxNzE4LWZ2NDkzYmhuYTEzdTFubTZ2azNiODQxZTVsaWVrdTNuLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE2NDA3NjE3MDQ3NDAzMDU5NjI5IiwiYXRfaGFzaCI6ImFUZm5KM0wtbk81ODlHVVZSZXQ5SmciLCJuYW1lIjoiVHUgRGluaCBUYW4iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUdObXl4YnVmY2VITTR5UHJVUnVRejZJRHNRLU1EelZSQXZGM0pRcjU5elBkdz1zOTYtYyIsImdpdmVuX25hbWUiOiJUdSBEaW5oIiwiZmFtaWx5X25hbWUiOiJUYW4iLCJsb2NhbGUiOiJlbiIsImlhdCI6MTY4MTk4NTk3MCwiZXhwIjoxNjgxOTg5NTcwfQ.ZszP3Di3ByHeEzj-gIjwpZGxLIr_CzF8dnq55hxmwLsK6weaRxz1fzsXyBjw6qIWYxdxaLtE4g1nfDFSZGAqZhX9AKhcbdRQeykQcD8R6t9bl6QmWMnUtzljHuiWWG-6BkRg011XT9Th1-1s8pj0KpfGtQPTveM_yA0OWc9AD7FiIKjf6YZu8CHT3WOWGeLW36zKKHr3xRbgGvaoWmyQQZx6JlMkurZOMULy0WMac3xbm8iNlUC7ijQdvJshz19PwvJz-xKyjDVVSK8v-rRkqTcYRjOAWPBIwnDYgIQOYknfQaiBml6aCsPUiIXk3iHHlgJBqeaApzAqhRIyBAKI3Q"
+        }));
         GetPlayerProfile();
     }
     public static string GenerateRandomString(int length)
